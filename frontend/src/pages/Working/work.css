@@ -1,0 +1,10 @@
+.container > h1{
+    color: whitesmoke;
+    margin-left: 500px;
+    margin-right: auto;
+}
+.container{
+    padding: auto;
+    justify-content: center;
+    align-items: center;
+}

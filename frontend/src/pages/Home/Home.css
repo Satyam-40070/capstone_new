@@ -1,0 +1,97 @@
+p,h1,h2{
+    color: rgb(251, 251, 252);
+}
+h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+h1{
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.container1{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.content{
+    padding-top: 8vh;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 60%;
+}
+.image{
+    max-width: 40%;
+    padding-left: 15vh;
+    justify-content: center;
+    align-items: center;
+    
+}
+img{
+    max-width: 350px;
+    height: 300px;
+    margin-left: 90px;
+    margin-top: 20px;
+    margin-bottom: -20px;
+}
+
+input{
+    padding-left: 52vh;
+    width: 600px;
+}
+
+/* From Uiverse.io by Navarog21 */ 
+button {
+    width: 10em;
+    margin-left: 685px;
+    margin-right: auto;
+    margin-top: 20px;
+    position: relative;
+    height: 3.5em;
+    border: 3px ridge #149CEA;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    transition: 1s;
+    border-radius: 0.3em;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  button::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    background-color: #151617;
+    transition: 0.5s;
+    transform-origin: center;
+  }
+  
+  button::before {
+    content: "";
+    transform-origin: center;
+    position: absolute;
+    top: 80%;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    background-color: #151617;
+    transition: 0.5s;
+  }
+  
+  button:hover::before, button:hover::after {
+    transform: scale(0)
+  }
+  
+  button:hover {
+    box-shadow: inset 0px 0px 25px #1479EA;
+  }

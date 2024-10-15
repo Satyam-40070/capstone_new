@@ -1,0 +1,50 @@
+form {
+    margin-top: 11vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35vw;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    border: 2px whitesmoke dashed;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    color: whitesmoke;
+    position: relative; /* Ensure positioning context for image wrapper */
+}
+
+input {
+    display: none; /* Hide input field */
+}
+
+.image-wrapper {
+    width: 100%;
+    height: 70%; /* Adjust to fit within the form */
+    overflow: hidden; /* Hide overflow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-top: 10px; /* Space between input and image */
+    /*background-color: #f0f0f0; *//* Optional: Background color for better visibility */
+}
+
+.image-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* Ensure the image covers the box without distortion */
+}
+
+section {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 35vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(54, 54, 51);
+}
