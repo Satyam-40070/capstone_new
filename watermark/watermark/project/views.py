@@ -47,7 +47,7 @@ def index(request):
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from .script import resize
+from .script2 import run_model
 import base64
 
 class ImageResizeView(APIView):
@@ -91,12 +91,14 @@ class ImageResizeView(APIView):
                 Image.open(image_file1)
 
                 image2 = np.array(Image.open(image_file2))
+                cv2.imwrite('secretimage.jpg', image1)
+                cv2.imwrite('imagecover1.jpg', image2)
                 print("file decoed")
             except Exception as e:
                 return JsonResponse({'error': 'Invalid image file'}, status=400)
             
             print("called resize")
-            resized_image = resize2(image1, image2)
+            resized_image = run_model() # resize2(image1, image2)
             _, img_encoded = cv2.imencode('.jpg', resized_image)
             img_base64 = base64.b64encode(img_encoded.tobytes()).decode('utf-8')
             img_data_url = f"data:image/jpeg;base64,{img_base64}"
