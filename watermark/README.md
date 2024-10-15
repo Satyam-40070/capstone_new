@@ -21,7 +21,7 @@ keras==3.6.0
 kiwisolver==1.4.7
 libclang==18.1.1
 Markdown==3.7
-markdown-it-py==3.0.0
+markdown-it-py==3.0.0   
 MarkupSafe==3.0.1
 matplotlib==3.9.2
 mdurl==0.1.2
