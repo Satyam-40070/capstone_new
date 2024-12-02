@@ -106,7 +106,7 @@ class ImageResizeView(APIView):
             
             resized_image = run_model(file_path1, file_path2)
 
-            image_path = r"C:\Users\himan\Documents\GitHub\capstone_new\watermark\watermark\decoded_cover_image.jpg"  # Adjust the path as necessary
+            image_path = r"E:\Semester7\Capstone\capsite\watermark\watermark\decoded_cover_image.jpg"  # Adjust the path as necessary
 
                 # Check if the file exists
             if os.path.exists(image_path):

@@ -390,7 +390,7 @@ def run_model(image1, image2):
     fullModel = FullModel(encoderModel, decoderModel)
 
     # Load the weights
-    path = r"C:\Users\himan\Documents\GitHub\capstone_new\watermark\watermark\project\model_512.weights.h5"
+    path = r"E:\Semester7\Capstone\capsite\watermark\watermark\project\model_512.weights.h5"
     fullModel.load_weights(path)
     print(f"Weights loaded from /model_weights.weights.h5")
 

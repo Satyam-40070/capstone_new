@@ -95,7 +95,7 @@ Advancing Protection with <a href="/" style={{color:'purple'}}>“Image Watermar
       <button onClick={handleEmbed}>Embed Image</button>
       {embedResult && (
         <div>
-          <img src={embedResult} alt="Embedded Result" style={{ maxWidth: '100%', height: 'auto', marginLeft: '450px', marginBottom:'10px' }} />
+          <img src={embedResult} alt="Embedded Result" style={{ maxWidth: '100%', height: 'auto', marginLeft: '650px', marginBottom:'10px' }} />
           <button onClick={downloadImage} style={{ display: 'block', marginTop: '10px' }}>
             Download Image
           </button>
