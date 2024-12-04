@@ -50,6 +50,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .script2 import run_model
 import base64
 
+
 class ImageResizeView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
@@ -104,6 +105,7 @@ class ImageResizeView(APIView):
             except Exception as e:
                 return JsonResponse({'error': 'Invalid image file'}, status=400)
             
+            print("got upto loading files=________yes")
             resized_image = run_model(file_path1, file_path2)
 
             image_path = r"E:\Semester7\Capstone\capsite\watermark\watermark\decoded_cover_image.jpg"  # Adjust the path as necessary

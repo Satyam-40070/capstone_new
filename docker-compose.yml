@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./watermark  # Path to Django project
+      dockerfile: Dockerfile
+    volumes:
+      - ./watermark:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+
+  frontend:
+    build: 
+      context: ./frontend  # Path to Node.js frontend project
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - watermark
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  static_volume:
+  media_volume:
