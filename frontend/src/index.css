@@ -1,25 +1,4 @@
-body {
-  /*margin: 0;
-  background-color: linear-gradient(90deg,purple,blue);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;*/
-  /* Rectangle 1 */
-
-width: 1280px;
-height: 832px;
-
-background: #151617;
-
-/* Inside auto layout */
-flex: none;
-order: 0;
-flex-grow: 0;
-
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
