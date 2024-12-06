@@ -48,6 +48,7 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from .script2 import run_model
+from .script2 import run_model1
 import base64
 
 
@@ -123,9 +124,74 @@ class ImageResizeView(APIView):
             else:
                     return JsonResponse({'error': 'Image not found'}, status=404)
 
-    
 
 
+class ImageResizeView1(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+
+    def post(self, request, *args, **kwargs):
+        print("called function")
+        print("Request Files:", request.FILES)
+        print("Keys in request.FILES:", list(request.FILES.keys()))
+        print(*args, **kwargs)
+
+        files = request.FILES.getlist('image1') #'file_field' --> 'imagen' for you
+   
+        for f in files:
+            print(f"f name is {f}")
+            print(f.name)
+        if 'image1' in request.FILES :
+            for file_key, uploaded_file in request.FILES.items():
+                print(f"Key: {file_key}")
+                print(f"File Name: {uploaded_file.name}")
+                print(f"File Size: {uploaded_file.size} bytes")
+                print(f"Content Type: {uploaded_file.content_type}")
+            image_file1= request.FILES.get('image1')
+            
+
+            upload_directory = os.path.join(settings.BASE_DIR, 'uploads')  # or your desired path
+
+            # Create the directory if it doesn't exist
+            os.makedirs(upload_directory, exist_ok=True)
+            file_path1 = ""
+            # Save the first uploaded file
+            if image_file1:
+                file_path1 = os.path.join(upload_directory, image_file1.name)
+                with open(file_path1, 'wb+') as destination:
+                    for chunk in image_file1.chunks():
+                        destination.write(chunk)
+
+            # Save the second uploaded file
+
+            print(file_path1)
+
+
+            try:
+                image1 = np.array(Image.open(image_file1))
+                Image.open(image_file1)
+              
+            except Exception as e:
+                return JsonResponse({'error': 'Invalid image file'}, status=400)
+            
+            print("Hello i am here brooo.....")
+            resized_image = run_model1(file_path1)
+
+            print("I am running broo")
+
+            image_path = r"C:\Users\jainh\OneDrive\Desktop\Capstone_sh\Capstone_sh\watermark\watermark\decoded_server_image.jpg"  # Adjust the path as necessary
+
+                # Check if the file exists
+            if os.path.exists(image_path):
+                    # Read the image file
+                    with open(image_path, 'rb') as image_file:
+                        # Encode the image to base64
+                        img_base64 = base64.b64encode(image_file.read()).decode('utf-8')
+                        img_data_url = f"data:image/jpeg;base64,{img_base64}"
+
+                    return JsonResponse({'image': img_data_url})
+            else:
+                    return JsonResponse({'error': 'Image not found'}, status=404)
 
             # if resized_image is not None and resized_image.size > 0:
             #     print(type(resized_image))  # Should be <class 'numpy.ndarray'>

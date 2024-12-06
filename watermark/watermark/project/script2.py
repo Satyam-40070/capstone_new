@@ -50,6 +50,25 @@ def load_data(image1, image2):
     return [cover_image, secret_image]
 
 
+def load_data1(image1):
+    # secret_path = ""
+    # imagename = "secretimage.jpg"
+    # img_i = image.load_img(os.path.join(secret_path, imagename))
+    # file_content = image1.read()
+    
+    # # Create a BytesIO object from the file content
+    # bytes_io = BytesIO(file_content)
+
+
+
+    img_i = image.load_img(image1)
+    img_i = img_i.resize((256, 256))
+    x = image.img_to_array(img_i)
+    secret_image = x
+
+    return secret_image
+
+
 def display_images(decoded_S, decoded_C):
     plt.figure(figsize=(12, 6))
 
@@ -81,9 +100,14 @@ def save_images(decoded_S, decoded_C):
     cover_image_pil.save("decoded_server_image.jpg")
 
 
+def save_images1(decoded_C):
+    secret_image = (decoded_C[0] * 255).astype(np.uint8)  # Scale back to [0, 255]
+    secret_image_pil = Image.fromarray(secret_image)
+    secret_image_pil.save("decoded_server_image.jpg")
+
 # Call the function to save the images
 
-from custom_layers import SliceLayer , IRDWTLayer , RDWTLayer , FullModel
+from custom_layers import SliceLayer , IRDWTLayer , RDWTLayer , FullModel , FullModel1
 from tensorflow.keras.models import load_model
 
 def run_model(image1, image2):
@@ -113,3 +137,34 @@ def run_model(image1, image2):
     save_images(decoded_S, decoded_C)
     print("Images saved as decoded_secret_image.jpg and decoded_cover_image.jpg")
     return decoded_S
+
+
+def run_model1(image1):
+    print("hitesh brooo....")
+    cover_image = load_data1(image1)
+
+    print(cover_image.shape)
+
+    # Load the weights
+    path = r"E:\Semester7\Capstone\capsite\watermark\watermark\project\model_512.weights.h5"
+    fullModel1 = load_model('main_model_downloaded_xray.keras' , custom_objects={'RDWTLayer': RDWTLayer,'IRDWTLayer': IRDWTLayer,'SliceLayer': SliceLayer , 'FullModel' : FullModel1})
+    print(f"Weights loaded from /model_weights.weights.h5")
+    # -----------------------------------------------
+    #X_test_secret = np.expand_dims(secret_image / 255.0, axis=0)
+    #X_test_cover = np.expand_dims(cover_image / 128.0, axis=0)
+
+    X_test_cover = np.expand_dims(cover_image / 255.0, axis=0)
+    print(X_test_cover.shape)
+    print("are we....")
+    decoded = fullModel1.predict(X_test_cover)
+    print("decoded image is here....")
+    if decoded.any():
+        print("yes sir...")
+    decoded_C = decoded
+
+    # -------------------------------------------------
+    # display_images(decoded_S, decoded_C)
+
+    save_images1(decoded_C)
+    print("Images saved as decoded_secret_image.jpg and decoded_cover_image.jpg")
+    return decoded_C

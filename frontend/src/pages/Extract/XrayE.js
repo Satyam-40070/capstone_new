@@ -22,7 +22,7 @@ const XrayE = () => {
     }
 
     const formData = new FormData();
-    formData.append('image', coverImage);
+    formData.append('image1', coverImage);
 
     axios
       .post('http://127.0.0.1:8000/xrayExtract/', formData, {

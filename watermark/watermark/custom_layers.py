@@ -632,3 +632,58 @@ class FullModel(tf.keras.Model):
         decoder.set_weights(decoder_weights)
         
         return cls(encoder_model=encoder, decoder_model=decoder)
+    
+
+
+
+class FullModel1(tf.keras.Model):
+    def __init__(self, decoder_model):
+        super(FullModel1, self).__init__()
+        self.decoder_model = decoder_model
+
+    def call(self, inputs):
+        # Take a single input image and pass it through the decoder
+        print("Hi i am here")
+        decoded_secret = self.decoder_model(inputs)
+        print("Hi i am here also..")
+        print(decoded_secret.shape)
+        return decoded_secret
+    
+    @tf.function
+    def train_step(self, data):
+        #(secret_input, cover_input), _ = data
+        
+        with tf.GradientTape() as tape:
+            #encoded_cover = self.encoder_model([secret_input, cover_input])
+            decoded_secret = self.decoder_model(data)
+            [total_loss, secret_loss, cover_loss] = combined_loss(decoded_secret)
+        
+        # Compute gradients and apply them
+        gradients = tape.gradient(total_loss, self.trainable_variables)
+        self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
+        
+        # Return the losses
+        return {
+            "total_loss": total_loss,
+            "secret_loss": secret_loss,
+            "cover_loss": cover_loss
+        }
+
+
+    def get_config(self):
+        # Serialize the decoder model configuration and weights
+        decoder_weights = [w.tolist() for w in self.decoder_model.get_weights()]
+        
+        return {
+            'decoder_config': self.decoder_model.get_config(),
+            'decoder_weights': decoder_weights
+        }
+
+    @classmethod
+    def from_config(cls, config):
+        # Recreate the decoder model
+        decoder = tf.keras.Model.from_config(config['decoder_config'])
+        decoder_weights = [np.array(w) for w in config['decoder_weights']]
+        decoder.set_weights(decoder_weights)
+        
+        return cls(decoder_model=decoder)
