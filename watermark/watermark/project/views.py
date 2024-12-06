@@ -108,7 +108,7 @@ class ImageResizeView(APIView):
             print("got upto loading files=________yes")
             resized_image = run_model(file_path1, file_path2)
 
-            image_path = r"E:\Semester7\Capstone\capsite\watermark\watermark\decoded_cover_image.jpg"  # Adjust the path as necessary
+            image_path = r"C:\Users\jainh\OneDrive\Desktop\Capstone_sh\Capstone_sh\watermark\watermark\decoded_cover_image.jpg"  # Adjust the path as necessary
 
                 # Check if the file exists
             if os.path.exists(image_path):
