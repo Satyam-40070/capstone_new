@@ -5,30 +5,27 @@ import Uploader from '../../Components/Uploader';
 
 const XrayE = () => {
   const [coverImage, setCoverImage] = useState(null);
-  const [secretImage, setSecretImage] = useState(null);
+  //const [secretImage, setSecretImage] = useState(null);
   const [embedResult, setEmbedResult] = useState(null);
   const [error, setError] = useState(null);
 
   const handleImageSelect = (file, formId) => {
     if (formId === 'cover') {
       setCoverImage(file);
-    } else if (formId === 'embed') {
-      setSecretImage(file);
     }
   };
 
   const handleEmbed = () => {
-    if (!coverImage || !secretImage) {
+    if (!coverImage) {
       setError('Please upload both images');
       return;
     }
 
     const formData = new FormData();
-    formData.append('image1', coverImage);
-    formData.append('image2', secretImage);
+    formData.append('image', coverImage);
 
     axios
-      .post('http://127.0.0.1:8000/xray/', formData, {
+      .post('http://127.0.0.1:8000/xrayExtract/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -42,7 +39,7 @@ const XrayE = () => {
       })
       .catch((error) => {
         console.error('Error embedding image:', error);
-        setError('Error embedding image.');
+        setError('Error extracting image.');
       });
   };
 
@@ -72,14 +69,14 @@ const XrayE = () => {
           onClick={handleEmbed}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block mx-auto mt-8"
         >
-          Embed Image
+          Extract Image
         </button>
 
         {embedResult && (
           <div className="mt-8">
             <img
               src={embedResult}
-              alt="Embedded Result"
+              alt="Extracted Result"
               className="max-w-full h-auto mb-4 block mx-auto"
             />
             <button

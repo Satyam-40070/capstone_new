@@ -54,6 +54,7 @@ import base64
 class ImageResizeView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
+
     def post(self, request, *args, **kwargs):
         print("called function")
         print("Request Files:", request.FILES)
@@ -121,6 +122,11 @@ class ImageResizeView(APIView):
                     return JsonResponse({'image': img_data_url})
             else:
                     return JsonResponse({'error': 'Image not found'}, status=404)
+
+    
+
+
+
             # if resized_image is not None and resized_image.size > 0:
             #     print(type(resized_image))  # Should be <class 'numpy.ndarray'>
             #     print(resized_image.shape)   # Should be (1, 256, 256, 3)
