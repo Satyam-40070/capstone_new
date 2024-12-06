@@ -3,5 +3,8 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path("resize/", ImageResizeView.as_view(), name="resize"),
+    path("xray/", ImageResizeView.as_view(), name="xray"),
+    path("doc/", ImageResizeView.as_view(), name="doc"),
+    path("xrayExtract/", ImageResizeView.as_view(), name="xrayExtract"),
+    path("docExtract/", ImageResizeView.as_view(), name="docExtract"),
 ]

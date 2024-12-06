@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './Home.css';
+import Uploader from '../../Components/Uploader';
+//import './xray.css';
 
-const Home = () => {
+const DocE = () => {
   const [coverImage, setCoverImage] = useState(null);
   const [secretImage, setSecretImage] = useState(null);
   const [embedResult, setEmbedResult] = useState(null);
@@ -54,28 +54,49 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-[#161b22] bg-custom-bg min-h-screen flex justify-center items-center pt-10">
+    <div className="bg-[#161b22] bg-custom-radial min-h-screen flex justify-center items-center pt-10">
       <div className="backdrop-blur-sm bg-white/10 rounded-lg shadow-lg p-8 w-full max-w-4xl ml-64">
-        <h1 className="text-white text-4xl font-bold mb-4">
-          Securing Digital Communication
-        </h1>
-        <h2 className="text-purple-400 text-2xl font-semibold mb-4">
-          Advancing Protection with "Image Watermarking" and "Learning Models"
-        </h2>
-        <p className="text-gray-300 mb-8">
-          Powered by Deep Learning, We can embed and extract watermarks and
-          objects from photos for desirable purpose. It is also a cross-platform
-          tool available on desktop (Win & Mac), mobile (iOS & Android), and
-          web.
-        </p>
-
-        <div className='flex space-x-20 justify-center'>
-          <Link to='/xray'><button className='button'>Signature in X-ray</button></Link>
-          <Link to='/doc'><button className='button'>Logo in Document</button></Link>
+        <h1 className='text-2xl text-white ml-[200px]'>Select your Xray and Signature images</h1>
+        <br />
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="w-full md:w-1/2 mb-8 md:mb-0 mr-5 ml-[200px]">
+            <Uploader
+              text="Watermarked image"
+              formId="cover"
+              onImageSelect={(file) => handleImageSelect(file, 'cover')}
+            />
+          </div>
         </div>
-       </div> 
+
+        <button
+          onClick={handleEmbed}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block mx-auto mt-8"
+        >
+          Embed Image
+        </button>
+
+        {embedResult && (
+          <div className="mt-8">
+            <img
+              src={embedResult}
+              alt="Embedded Result"
+              className="max-w-full h-auto mb-4 block mx-auto"
+            />
+            <button
+              onClick={downloadImage}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded block mx-auto"
+            >
+              Download Image
+            </button>
+          </div>
+        )}
+
+        {error && (
+          <div className="text-red-500 font-bold text-center mt-8">{error}</div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default DocE;
